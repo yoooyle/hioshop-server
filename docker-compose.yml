@@ -1,0 +1,29 @@
+version: "3.7"
+
+services:
+    backend:
+        image: node:11-alpine 
+        command: sh -c "npm install && npm start"
+        ports: 
+            - 8360:8360
+        working_dir: /app
+        volumes: 
+            -  ./:/app
+        environment: 
+            MYSQL_HOST: mysql
+            MYSQL_USER: root 
+            MYSQL_PASSWORD: 123123123
+            MYSQL_DB: hiolabsDB
+
+    mysql:
+        image: mysql:8.0
+        volumes:
+            - hioshop-mysql-data:/var/lib/mysql
+        ports: 
+            - 3306:3306
+        environment: 
+            MYSQL_ROOT_PASSWORD: 123123123
+            MYSQL_DATABASE: hiolabsDB
+
+volumes:
+    hioshop-mysql-data:
